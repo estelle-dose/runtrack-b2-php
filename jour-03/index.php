@@ -32,40 +32,60 @@ include "functions.php";
 //job-04
 
 // Appelez la fonction pour récupérer un étudiant par ID
-$student = findOneStudent(100); // Remplacez numero par l'ID de l'étudiant que vous souhaitez récupérer
+// $student = findOneStudent(100); // Remplacez numero par l'ID de l'étudiant que vous souhaitez récupérer
 
-if ($student) {
-    // Si l'étudiant a été trouvé, affichez ses informations
-    echo $student;
-} else {
-    echo "Étudiant non trouvé.";
-}
+// if ($student) {
+//     // Si l'étudiant a été trouvé, affichez ses informations
+//     echo $student;
+// } else {
+//     echo "Étudiant non trouvé.";
+// }
 
-$grade = findOneGrade(2); // Remplacez numero par l'ID de la promo que vous souhaitez récupérer
+// $grade = findOneGrade(2); // Remplacez numero par l'ID de la promo que vous souhaitez récupérer
+
+// if ($grade) {
+//     // Si la promo a été trouvé, affichez ses informations
+//     echo $grade;
+// } else {
+//     echo "Promo non trouvé.";
+// }
+
+// $floor = findOneFloor(1); // Remplacez numero par l'ID de l'étage que vous souhaitez récupérer
+
+// if ($floor) {
+//     // Si l'étage' a été trouvé, affichez ses informations
+//     echo $floor;
+// } else {
+//     echo "Etage non trouvé.";
+// }
+
+// $room = findOneRoom(3); // Remplacez numero par l'ID de la salle que vous souhaitez récupérer
+
+// if ($room) {
+//     // Si la salle a été trouvé, affichez ses informations
+//     echo $room;
+// } else {
+//     echo "Salle non trouvé.";
+// }
+
+//job-05
+
+$gradeId = 2; // Remplacez 2 par l'ID de la promotion que vous souhaitez récupérer
+$grade = findOneGrade($gradeId);
 
 if ($grade) {
-    // Si la promo a été trouvé, affichez ses informations
-    echo $grade;
+    $students = $grade->getStudents();
+    if ($students) {
+        foreach ($students as $student) {
+            // Affichez les informations de chaque étudiant
+            echo $student;
+        }
+    } else {
+        echo "Aucun étudiant trouvé pour cette promotion.";
+    }
 } else {
-    echo "Promo non trouvé.";
+    echo "Promotion non trouvée.";
 }
 
-$floor = findOneFloor(1); // Remplacez numero par l'ID de l'étage que vous souhaitez récupérer
-
-if ($floor) {
-    // Si l'étage' a été trouvé, affichez ses informations
-    echo $floor;
-} else {
-    echo "Etage non trouvé.";
-}
-
-$room = findOneRoom(3); // Remplacez numero par l'ID de la salle que vous souhaitez récupérer
-
-if ($room) {
-    // Si la salle a été trouvé, affichez ses informations
-    echo $room;
-} else {
-    echo "Salle non trouvé.";
-}
 
 ?>

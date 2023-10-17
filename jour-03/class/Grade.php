@@ -58,5 +58,38 @@ class Grade {
                 "Year:" . $this->year . "<br>" .
                 "<br>";
     }
+
+    public function getStudents(): ?array {
+        global $servername, $username, $password, $dbname;
+    
+        try {
+            $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "SELECT id, grade_id, email, fullname, birthdate, gender FROM student WHERE grade_id = :grade_id";
+            $stmt = $pdo->prepare($sql);
+            $gradeId = $this->getId();
+            $stmt->bindParam(':grade_id', $gradeId, PDO::PARAM_INT);
+            $stmt->execute();
+            $studentData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            $students = [];
+            foreach ($studentData as $data) {
+                $students[] = new Student(
+                    $data['id'],
+                    $data['grade_id'],
+                    $data['email'],
+                    $data['fullname'],
+                    $data['birthdate'],
+                    $data['gender']
+                );
+            }
+    
+            return $students;
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
+        }
+    }
+    
 }
 ?>
