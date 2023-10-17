@@ -23,55 +23,56 @@ class Student {
         $this->gender = $gender;
     }
 
-    // Ajoutez les méthodes d'accès (getters) si nécessaire
+    // Getters
     public function getId(): int {
         return $this->id;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
     public function getGradeId(): int {
         return $this->grade_id;
-    }
-    
-    public function setGradeId($grade_id) {
-        $this->grade_id = $grade_id;
     }
 
     public function getEmail(): string {
         return $this->email;
     }
 
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
     public function getFullname(): string {
         return $this->fullname;
-    }
-
-    public function setFullname($fullname) {
-        $this->fullname = $fullname;
     }
 
     public function getBirthdate(): string {
         return $this->birthdate;
     }
 
-    public function setBirthdate($birthdate) {
-        $this->birthdate = $birthdate;
-    }
-
     public function getGender(): string {
         return $this->gender;
     }
 
-    public function setGender($gender) {
+    // Setters
+    public function setId(int $id): void {
+        $this->id = $id;
+    }
+
+    public function setGradeId(int $grade_id): void {
+        $this->grade_id = $grade_id;
+    }
+
+    public function setEmail(string $email): void {
+        $this->email = $email;
+    }
+
+    public function setFullname(string $fullname): void {
+        $this->fullname = $fullname;
+    }
+
+    public function setBirthdate(string $birthdate): void {
+        $this->birthdate = $birthdate;
+    }
+
+    public function setGender(string $gender): void {
         $this->gender = $gender;
     }
-    
+
     public function __toString() {
         return  "Student ID: " . $this->id . "<br>" .
                 "Grade ID:" . $this->grade_id . "<br>" .
@@ -81,9 +82,5 @@ class Student {
                 "Gender:" . $this->gender . "<br>" .
                 "<br>";
     }
-    
 }
-
-    
-
 ?>

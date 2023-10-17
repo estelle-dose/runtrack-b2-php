@@ -7,47 +7,45 @@ class Floor {
     public function __construct(
         int $id = 0,
         string $name = "",
-        int $level = 0,
+        int $level = 0
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->level = $level;
     }
 
-    // Ajoutez les méthodes d'accès (getters) si nécessaire
+    // Getters
     public function getId(): int {
         return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
     }
 
     public function getName(): string {
         return $this->name;
     }
 
-    public function setName($name) {
-        $this->name = $name;
-    }
-
     public function getLevel(): int {
         return $this->level;
     }
 
-    public function setLevel($level) {
+    // Setters
+    public function setId(int $id): void {
+        $this->id = $id;
+    }
+
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+
+    public function setLevel(int $level): void {
         $this->level = $level;
     }
-    
+
     public function __toString() {
-        return  "Grade ID: " . $this->id . "<br>" .
+        return  "Floor ID: " . $this->id . "<br>" .
                 "Name:" . $this->name . "<br>" .
                 "Level:" . $this->level . "<br>" .
                 "<br>";
     }
-    
 }
-
-    
 
 ?>

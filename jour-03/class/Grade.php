@@ -9,7 +9,7 @@ class Grade {
         int $id = 0,
         int $room_id = 0,
         string $name = "",
-        string $year = "",
+        string $year = ""
     ) {
         $this->id = $id;
         $this->room_id = $room_id;
@@ -17,39 +17,40 @@ class Grade {
         $this->year = $year;
     }
 
-    // Ajoutez les méthodes d'accès (getters) si nécessaire
+    // Getters
     public function getId(): int {
         return $this->id;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
     public function getRoomId(): int {
         return $this->room_id;
-    }
-    
-    public function setRoomId($room_id) {
-        $this->room_id = $room_id;
     }
 
     public function getName(): string {
         return $this->name;
     }
 
-    public function setName($name) {
-        $this->name = $name;
-    }
-
     public function getYear(): string {
         return $this->year;
     }
 
-    public function setYear($year) {
+    // Setters
+    public function setId(int $id): void {
+        $this->id = $id;
+    }
+
+    public function setRoomId(int $room_id): void {
+        $this->room_id = $room_id;
+    }
+
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+
+    public function setYear(string $year): void {
         $this->year = $year;
     }
-    
+
     public function __toString() {
         return  "Grade ID: " . $this->id . "<br>" .
                 "Room ID:" . $this->room_id . "<br>" .
@@ -57,9 +58,5 @@ class Grade {
                 "Year:" . $this->year . "<br>" .
                 "<br>";
     }
-    
 }
-
-    
-
 ?>
