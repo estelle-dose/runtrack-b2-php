@@ -2,16 +2,16 @@
 class Floor {
     private int $id;
     private string $name;
-    private int $level;
+    private int $building_id;
 
     public function __construct(
         int $id = 0,
         string $name = "",
-        int $level = 0
+        int $building_id = 0
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->level = $level;
+        $this->building_id = $building_id;
     }
 
     // Getters
@@ -23,8 +23,8 @@ class Floor {
         return $this->name;
     }
 
-    public function getLevel(): int {
-        return $this->level;
+    public function getBuildingId(): int {
+        return $this->building_id;
     }
 
     // Setters
@@ -36,15 +36,48 @@ class Floor {
         $this->name = $name;
     }
 
-    public function setLevel(int $level): void {
-        $this->level = $level;
+    public function setBuildingId(int $building_id): void {
+        $this->building_id = $building_id;
     }
 
     public function __toString() {
-        return  "Floor ID: " . $this->id . "<br>" .
-                "Name:" . $this->name . "<br>" .
-                "Level:" . $this->level . "<br>" .
-                "<br>";
+        return "Floor ID: " . $this->id . "<br>" .
+            "Name:" . $this->name . "<br>" .
+            "Building ID:" . $this->building_id . "<br>" .
+            "<br>";
+    }
+
+    public function getRooms(): ?array {
+        global $servername, $username, $password, $dbname;
+
+        try {
+            $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "SELECT r.* FROM room r
+                    INNER JOIN floor f ON r.floor_id = :floor_id";
+            $stmt = $pdo->prepare($sql);
+
+            $floorId = $this->getId();
+            $stmt->bindParam(':floor_id', $floorId, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $roomData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $rooms = [];
+            foreach ($roomData as $data) {
+                $rooms[] = new Room(
+                    $data['id'],
+                    $data['floor_id'],
+                    $data['name'],
+                    $data['capacity']
+                );
+            }
+
+            return $rooms;
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
+        }
     }
 }
 

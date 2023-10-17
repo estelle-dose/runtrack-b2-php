@@ -70,6 +70,8 @@ include "functions.php";
 
 //job-05
 
+echo "job-05<br><br>";
+
 $gradeId = 2; // Remplacez 2 par l'ID de la promotion que vous souhaitez récupérer
 $grade = findOneGrade($gradeId);
 
@@ -87,5 +89,52 @@ if ($grade) {
     echo "Promotion non trouvée.";
 }
 
+//job-06
+
+echo "job-06<br><br>";
+
+echo "Student room<br><br>";
+
+$roomId = 2; // Remplacez 2 par l'ID de la salle que vous souhaitez récupérer
+$room = findOneRoom($roomId);
+
+if ($room) {
+    $students = $room->getGrades(); // Utilisez la méthode getGrades() pour récupérer les promotions liées à la salle
+    if ($students) {
+        foreach ($students as $grade) {
+            echo "Room Name: " . $room->getName() . "<br>";
+            echo "Grade ID: " . $grade->getId() . "<br>";
+            echo "Grade Name: " . $grade->getName() . "<br>";
+            echo "Grade Year: " . $grade->getYear() . "<br>";
+            echo "<br>";
+        }
+    } else {
+        echo "Aucune promotion trouvée pour cette salle.";
+    }
+} else {
+    echo "Salle non trouvée.";
+}
+
+echo "Student floor<br><br>";
+
+$floorId = 2; // Remplacez 2 par l'ID de l'étage que vous souhaitez récupérer
+$floor = findOneFloor($floorId);
+
+if ($floor) {
+    $students = $floor->getRooms(); // Utilisez la méthode getRooms() pour récupérer les salles liées à l'étage
+    if ($students) {
+        foreach ($students as $room) {
+            echo "Floor Name: " . $floor->getName() . "<br>";
+            echo "Room ID: " . $room->getId() . "<br>";
+            echo "Room Name: " . $room->getName() . "<br>";
+            echo "Room Capacity: " . $room->getCapacity() . "<br>";
+            echo "<br>";
+        }
+    } else {
+        echo "Aucune salle trouvée pour cet étage.";
+    }
+} else {
+    echo "Etage non trouvé.";
+}
 
 ?>

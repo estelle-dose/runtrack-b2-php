@@ -58,6 +58,39 @@ class Room {
                 "Capacity:" . $this->capacity . "<br>" .
                 "<br>";
     }
+
+    public function getGrades(): ?array {
+        global $servername, $username, $password, $dbname;
+
+        try {
+            $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "SELECT g.* FROM grade g
+                    INNER JOIN room r ON r.id = :room_id";
+            $stmt = $pdo->prepare($sql);
+
+            $roomId = $this->getId();
+            $stmt->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $gradeData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $grades = [];
+            foreach ($gradeData as $data) {
+                $grades[] = new Grade(
+                    $data['id'],
+                    $data['room_id'],
+                    $data['name'],
+                    $data['year']
+                );
+            }
+
+            return $grades;
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
+        }
+    }
 }
 
 ?>
